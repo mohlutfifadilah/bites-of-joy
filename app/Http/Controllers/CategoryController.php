@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
-use App\Models\Users;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,18 +15,8 @@ class DashboardController extends Controller
     public function index()
     {
         //
-
-        $pengguna = Users::all()->count();
-        $admin = Users::where('role', 1)->count();
-        $users = Users::where('role', 2)->count();
-        $product = Product::all()->count();
-
-        return view('admin.dashboard', [
-            'pengguna' => $pengguna,
-            'admin' => $admin,
-            'users' => $users,
-            'product' => $product
-        ]);
+        $category = Category::all();
+        return view('admin.category.index', compact('category'));
     }
 
     /**
@@ -38,6 +27,7 @@ class DashboardController extends Controller
     public function create()
     {
         //
+        return view('admin.category.create');
     }
 
     /**
@@ -49,6 +39,15 @@ class DashboardController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'name_category' => 'required',
+        ]);
+
+        Category::create([
+            'name_category' =>   $request->name_category,
+        ]);
+
+        return redirect()->route('category.index');
     }
 
     /**
@@ -71,6 +70,8 @@ class DashboardController extends Controller
     public function edit($id)
     {
         //
+        $category = Category::find($id);
+        return view('admin.category.edit', compact('category'));
     }
 
     /**
@@ -83,6 +84,16 @@ class DashboardController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'name_category' => 'required',
+        ]);
+
+        $category = Category::find($id);
+        $category->update([
+            'name_category' => $request->name_category,
+        ]);
+
+        return redirect()->route('category.index');
     }
 
     /**
@@ -94,5 +105,9 @@ class DashboardController extends Controller
     public function destroy($id)
     {
         //
+        $category = Category::find($id);
+        $category->delete();
+
+        return redirect()->route('category.index');
     }
 }

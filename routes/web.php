@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,10 +21,20 @@ use App\Http\Controllers\DashboardController;
 Route::get('/', [LoginController::class, 'login'])->name('login');
 Route::post('actionlogin', [LoginController::class, 'actionlogin'])->name('actionlogin');
 
-Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
-Route::get('actionlogout', [LoginController::class, 'actionlogout'])->name('actionlogout')->middleware('auth');
 
-// Dashboard
+// Admin
+Route::middleware(['auth'])->group(function () {
+    Route::get('actionlogout', [LoginController::class, 'actionlogout'])->name('actionlogout');
+
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('users', UsersController::class);
+    Route::resource('category', CategoryController::class);
+    Route::resource('product', ProductController::class);
+
+});
+
+Route::get('create-users', [UsersController::class, 'create'])->name('users')->middleware('auth');
+
 Route::get('/dashboard-general-dashboard', function () {
     return view('main.main', ['type_menu' => 'dashboard']);
 });
