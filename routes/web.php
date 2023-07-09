@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UsersController;
 
@@ -18,7 +19,9 @@ use App\Http\Controllers\UsersController;
 |
 */
 
-Route::get('/', [LoginController::class, 'login'])->name('login');
+Route::get('/', [MainController::class, 'index']);
+
+Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('actionlogin', [LoginController::class, 'actionlogin'])->name('actionlogin');
 
 

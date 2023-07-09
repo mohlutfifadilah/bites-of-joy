@@ -26,7 +26,7 @@
 
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-12">
-                        <form action="{{ route('category.store') }}" method="post">
+                        <form action="{{ route('category.store') }}" method="post"  enctype="multipart/form-data">
                             <div class="card">
                                 @csrf
                                 {{-- <div class="card-header">
@@ -36,6 +36,10 @@
                                     {{-- <div class="alert alert-info">
                                             <b>Note!</b> Not all browsers support HTML5 type input.
                                         </div> --}}
+                                    <div class="form-group">
+                                        <label>Photo</label>
+                                        <input type="file" class="form-control" name="photo" required>
+                                    </div>
                                     <div class="form-group">
                                         <label>Name Category</label>
                                         <input type="text" class="form-control" name="name_category" required>

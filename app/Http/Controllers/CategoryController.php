@@ -43,7 +43,17 @@ class CategoryController extends Controller
             'name_category' => 'required',
         ]);
 
+        $image = $request->file('photo');
+
+        if ($image) {
+            $destinationPath = 'img/categories/';
+            $productImage = date('YmdHis') . '.' . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $productImage);
+            $photo = $productImage;
+        }
+
         Category::create([
+            'photo'         =>   $photo,
             'name_category' =>   $request->name_category,
         ]);
 
@@ -87,11 +97,25 @@ class CategoryController extends Controller
         $request->validate([
             'name_category' => 'required',
         ]);
-
+        $image = $request->file('photo');
         $category = Category::find($id);
-        $category->update([
-            'name_category' => $request->name_category,
-        ]);
+        if ($image) {
+            $destinationPath = 'img/categories';
+
+            unlink($destinationPath . $category->photo);
+            $categoryImage = date('YmdHis') . '.' . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $categoryImage);
+            $photo = $categoryImage;
+
+            $category->update([
+                'photo'            =>   $photo,
+                'name_category'      =>   $request->name_category,
+            ]);
+        } else {
+            $category->update([
+                'name_category'      =>   $request->name_category,
+            ]);
+        }
 
         return redirect()->route('category.index');
     }
@@ -105,7 +129,10 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
+        $destinationPath = 'img/categories/';
         $category = Category::find($id);
+
+        unlink($destinationPath . $category->photo);
         $category->delete();
 
         return redirect()->route('category.index');

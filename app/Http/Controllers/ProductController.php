@@ -46,7 +46,6 @@ class ProductController extends Controller
             'id_category' => 'required',
             'product_name' => 'required',
             'photo' => 'required',
-            'description' => 'required',
             'stock' => 'required',
             'price' => 'required',
         ]);
@@ -108,7 +107,6 @@ class ProductController extends Controller
         //
         $request->validate([
             'product_name' => 'required',
-            'description' => 'required',
             'stock' => 'required',
             'price' => 'required',
         ]);

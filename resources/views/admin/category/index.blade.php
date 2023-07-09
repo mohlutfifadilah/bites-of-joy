@@ -37,6 +37,7 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">No</th>
+                                            <th scope="col">Photo</th>
                                             <th scope="col">Name Category</th>
                                             <th scope="col">Action</th>
                                         </tr>
@@ -45,6 +46,10 @@
                                         @foreach ($category as $c)
                                             <tr>
                                                 <th scope="row">{{ $loop->iteration }}</th>
+                                                <td>
+                                                    <img src="{{ asset('img/categories/' . $c->photo) }}" alt=""
+                                                        class="img-fluid">
+                                                </td>
                                                 <td>{{ $c->name_category }}</td>
                                                 <td>
                                                     <div class="btn-group" role="group">

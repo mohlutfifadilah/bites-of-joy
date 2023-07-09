@@ -1,27 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.auth')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+@section('title', 'Login')
 
-<body>
-    <form action="{{ route('actionlogin') }}" method="post">
-        @csrf
-        <input type="text" name="email">
-        <input type="text" name="password">
-        <button type="submit">
-            Login
-        </button>
-        @if (session('error'))
-            <div class="alert alert-danger">
-                <b>Opps!</b> {{ session('error') }}
-            </div>
-        @endif
-    </form>
-</body>
+@push('style')
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="{{ asset('library/bootstrap-social/bootstrap-social.css') }}">
+@endpush
 
-</html>
+@section('main')
+    <div class="card card-primary">
+        <div class="card-header">
+            <h4>Login</h4>
+        </div>
+
+        <div class="card-body">
+            <form method="POST" action="{{ route('actionlogin') }}" class="needs-validation" novalidate="">
+                @csrf
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" class="form-control" name="email" tabindex="1" required
+                        autofocus>
+                    <div class="invalid-feedback">
+                        Please fill in your email
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="d-block">
+                        <label for="password" class="control-label">Password</label>
+                    </div>
+                    <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
+                    <div class="invalid-feedback">
+                        Please fill in your password
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                        Login
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="text-muted mt-5 text-center">
+        Don't have an account? <a href="auth-register.html">Create One</a>
+    </div>
+@endsection
+
+@push('scripts')
+    <!-- JS Libraies -->
+
+    <!-- Page Specific JS File -->
+@endpush
