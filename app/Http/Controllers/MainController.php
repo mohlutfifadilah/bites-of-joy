@@ -13,7 +13,8 @@ class MainController extends Controller
     {
         $category = Category::all();
         $product = Product::all();
+        $active = 'home';
 
-        return view('main.main', compact('category', 'product'));
+        return view('main.main', compact('category', 'product', 'active'));
     }
 }

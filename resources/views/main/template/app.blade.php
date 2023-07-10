@@ -41,16 +41,30 @@
             <div class="col-lg-5">
                 <nav class="header__menu">
                     <ul>
-                        <li class="active"><a href="./index.html">Home</a></li>
-                        <li><a href="./shop-grid.html">Shop</a></li>
-                        <li><a href="#">Pages</a>
+                        <li class="{{ $active == 'home' ? 'active' : '' }}">
+                            <a href="{{ url('/') }}">Home</a>
+                        </li>
+                        <li class="{{ $active == 'shop-grid' ? 'active' : '' }}">
+                            <a href="{{ url('/shop-grid') }}">Shop</a>
+                        </li>
+                        <li
+                            class="{{ $active == 'checkout' ? 'active' : ($active == 'shop-detail' ? 'active' : ($active == 'shop-cart' ? 'active' : '')) }}">
+                            <a href="#">Pages</a>
                             <ul class="header__menu__dropdown">
-                                <li><a href="./shop-details.html">Shop Details</a></li>
-                                <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                                <li><a href="./checkout.html">Check Out</a></li>
+                                <li class="{{ $active == 'shop-detail' ? 'active' : '' }}">
+                                    <a href="{{ url('/shop-detail') }}">Shop Details</a>
+                                </li>
+                                <li class="{{ $active == 'shop-cart' ? 'active' : '' }}"><a
+                                        href="{{ url('/shop-cart') }}">Shoping Cart</a></li>
+                                <li class="{{ $active == 'checkout' ? 'active' : '' }}">
+                                    <a href="{{ url('/checkout') }}">
+                                        Check Out
+                                    </a>
+                                </li>
                             </ul>
                         </li>
-                        <li><a href="./contact.html">Contact</a></li>
+                        <li class="{{ $active == 'contact' ? 'active' : '' }}"><a
+                                href="{{ url('/contact') }}">Contact</a></li>
                     </ul>
                 </nav>
             </div>

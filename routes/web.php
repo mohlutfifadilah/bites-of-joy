@@ -7,6 +7,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UsersController;
+use App\Models\Category;
+use App\Models\Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +26,46 @@ Route::get('/', [MainController::class, 'index']);
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('actionlogin', [LoginController::class, 'actionlogin'])->name('actionlogin');
 
+Route::get('/contact', function () {
+    $category = Category::all();
+    $active = 'contact';
 
+    return view('main.contact', compact('category', 'active'));
+});
+
+Route::get('/shop-detail', function () {
+    $category = Category::all();
+    $product = Product::all();
+    $total = Product::count();
+    $active = 'shop-detail';
+
+    return view('main.shop-detail', compact('category', 'product', 'total', 'active'));
+});
+
+Route::get('/shop-grid', function () {
+    $category = Category::all();
+    $product = Product::all();
+    $total = Product::count();
+    $active = 'shop-grid';
+
+    return view('main.shop-grid', compact('category', 'product', 'total', 'active'));
+});
+
+Route::get('/checkout', function () {
+    $category = Category::all();
+    $product = Product::limit(3)->get();
+    $active = 'checkout';
+
+    return view('main.checkout', compact('category', 'product', 'active'));
+});
+
+Route::get('/shop-cart', function () {
+    $category = Category::all();
+    $product = Product::limit(3)->get();
+    $active = 'shop-cart';
+
+    return view('main.shop-cart', compact('category', 'product', 'active'));
+});
 // Admin
 Route::middleware(['auth'])->group(function () {
     Route::get('actionlogout', [LoginController::class, 'actionlogout'])->name('actionlogout');
@@ -33,7 +74,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('users', UsersController::class);
     Route::resource('category', CategoryController::class);
     Route::resource('product', ProductController::class);
-
 });
 
 Route::get('create-users', [UsersController::class, 'create'])->name('users')->middleware('auth');
