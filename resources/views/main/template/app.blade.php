@@ -54,8 +54,9 @@
                                 <li class="{{ $active == 'shop-detail' ? 'active' : '' }}">
                                     <a href="{{ url('/shop-detail') }}">Shop Details</a>
                                 </li>
-                                <li class="{{ $active == 'shop-cart' ? 'active' : '' }}"><a
-                                        href="{{ url('/shop-cart') }}">Shoping Cart</a></li>
+                                <li class="{{ $active == 'shop-cart' ? 'active' : '' }}">
+                                    <a href="{{ url('/shop-cart') }}">Shoping Cart</a>
+                                </li>
                                 <li class="{{ $active == 'checkout' ? 'active' : '' }}">
                                     <a href="{{ url('/checkout') }}">
                                         Check Out
@@ -73,8 +74,13 @@
                     <ul class="mr-0">
                         <li><a href="#"><i class="fas fa-heart"></i> <span>1</span></a></li>
                         <li><a href="#"><i class="fas fa-shopping-bag"></i> <span>3</span></a></li>
-                        <div class="header__cart__price">Total: <span>Rp 75.000</span></div>
-                        <a href="/login" class="primary-btn"><span>Login</span></a>
+                        <div class="header__cart__price mr-4">Total: <span>Rp 75.000</span></div>
+                        @if (Auth::user())
+                            <a class="header__cart__price text-danger" href="{{ route('actionlogout') }}"><i
+                                    class="fas fa-sign-out-alt"></i> <span class="text-danger">Logout</span></a>
+                        @else
+                            <a href="/login" class="primary-btn"><span>Login</span></a>
+                        @endif
                     </ul>
                 </div>
             </div>

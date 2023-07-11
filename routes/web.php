@@ -25,6 +25,10 @@ Route::get('/', [MainController::class, 'index']);
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('actionlogin', [LoginController::class, 'actionlogin'])->name('actionlogin');
+Route::get('/register', function () {
+    return view('register');
+});
+Route::post('/actionregister', [LoginController::class, 'actionregister'])->name('actionregister');
 
 Route::get('/contact', function () {
     $category = Category::all();
